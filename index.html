@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NexaStudio — Desarrollo Web & Automatización con IA</title>
+  <meta name="description" content="Agencia de desarrollo web y automatización con inteligencia artificial. Transformamos tu negocio con soluciones digitales a medida." />
+  <link rel="stylesheet" href="css/estilos.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+</head>
+<body>
+
+  <!-- ── NAVEGACIÓN ─────────────────────────────────────────────────── -->
+  <nav id="nav">
+    <div class="contenedor nav-inner">
+      <a href="#" class="logo">Nexa<span>Studio</span></a>
+      <ul class="nav-links">
+        <li><a href="#servicios">Servicios</a></li>
+        <li><a href="#proceso">Proceso</a></li>
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#contacto">Contacto</a></li>
+      </ul>
+      <a href="#contacto" class="nav-cta">Hablemos</a>
+      <button class="nav-menu-toggle" aria-label="Menú">☰</button>
+    </div>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────────────────────────── -->
+  <section id="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-grid"></div>
+    <canvas id="hero-canvas" style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none;"></canvas>
+    <div class="contenedor">
+      <div class="hero-contenido">
+        <span class="tag">Desarrollo · IA · Automatización</span>
+        <h1 class="hero-titulo">
+          Soluciones digitales<br>
+          que <span class="acento">impulsan</span> tu<br>
+          negocio
+        </h1>
+        <p class="hero-subtitulo">
+          Desarrollamos sitios web de alto impacto y automatizamos tus procesos con inteligencia artificial. Tecnología a medida, resultados reales.
+        </p>
+        <div class="hero-acciones">
+          <a href="#contacto" class="btn-primario">
+            Empezar proyecto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="btn-ws" data-ws target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.445h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.448z"/></svg>
+            WhatsApp
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <div class="stat-num"><span data-contador="40">0</span><span>+</span></div>
+            <div class="stat-label">Proyectos entregados</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span data-contador="98">0</span><span>%</span></div>
+            <div class="stat-label">Clientes satisfechos</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-num"><span data-contador="3">0</span><span>x</span></div>
+            <div class="stat-label">Productividad promedio</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── SERVICIOS ──────────────────────────────────────────────────── -->
+  <section id="servicios">
+    <div class="contenedor">
+      <div class="seccion-header reveal">
+        <span class="tag">Lo que hacemos</span>
+        <h2 class="seccion-titulo">Servicios diseñados<br>para crecer</h2>
+        <p class="seccion-subtitulo">Combinamos diseño, desarrollo y tecnología de IA para crear productos que destacan.</p>
+      </div>
+      <div class="servicios-grid">
+
+        <div class="servicio-card reveal">
+          <div class="servicio-icono">🌐</div>
+          <h3>Desarrollo Web</h3>
+          <p>Sitios y aplicaciones web rápidas, modernas y optimizadas para conversión. Desde landing pages hasta plataformas complejas.</p>
+          <ul class="servicio-lista">
+            <li>Landing pages de alto impacto</li>
+            <li>E-commerce y tiendas online</li>
+            <li>Aplicaciones web a medida</li>
+            <li>Optimización SEO técnico</li>
+          </ul>
+        </div>
+
+        <div class="servicio-card reveal">
+          <div class="servicio-icono">🤖</div>
+          <h3>Agentes de IA</h3>
+          <p>Implementamos agentes inteligentes que automatizan tareas repetitivas, responden consultas y toman decisiones en nombre de tu empresa.</p>
+          <ul class="servicio-lista">
+            <li>Chatbots con IA generativa</li>
+            <li>Asistentes virtuales 24/7</li>
+            <li>Integración con WhatsApp</li>
+            <li>Agentes de ventas automatizados</li>
+          </ul>
+        </div>
+
+        <div class="servicio-card reveal">
+          <div class="servicio-icono">⚡</div>
+          <h3>Automatización</h3>
+          <p>Eliminamos el trabajo manual conectando tus herramientas y construyendo flujos de trabajo inteligentes que funcionan solos.</p>
+          <ul class="servicio-lista">
+            <li>Automatización con n8n / Make</li>
+            <li>Integración de APIs y sistemas</li>
+            <li>Reportes y alertas automáticas</li>
+            <li>Sincronización entre plataformas</li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROCESO ────────────────────────────────────────────────────── -->
+  <section id="proceso">
+    <div class="contenedor">
+      <div class="seccion-header reveal" style="text-align:center;">
+        <span class="tag">Cómo trabajamos</span>
+        <h2 class="seccion-titulo">Simple, ágil y transparente</h2>
+        <p class="seccion-subtitulo" style="margin:0 auto;">Un proceso claro que te mantiene informado en cada etapa.</p>
+      </div>
+      <div class="proceso-grid">
+        <div class="paso reveal">
+          <div class="paso-num">1</div>
+          <h4>Consulta inicial</h4>
+          <p>Conversamos sobre tus objetivos, necesidades y presupuesto sin compromiso.</p>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num">2</div>
+          <h4>Propuesta y plan</h4>
+          <p>Presentamos una propuesta detallada con tiempos, costos y entregables.</p>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num">3</div>
+          <h4>Desarrollo</h4>
+          <p>Ejecutamos el proyecto con revisiones semanales y acceso continuo al progreso.</p>
+        </div>
+        <div class="paso reveal">
+          <div class="paso-num">4</div>
+          <h4>Entrega y soporte</h4>
+          <p>Lanzamos, capacitamos a tu equipo y ofrecemos soporte post-entrega.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── PROYECTOS ──────────────────────────────────────────────────── -->
+  <section id="proyectos">
+    <div class="contenedor">
+      <div class="seccion-header reveal">
+        <span class="tag">Nuestro trabajo</span>
+        <h2 class="seccion-titulo">Proyectos que hablan<br>por sí solos</h2>
+        <p class="seccion-subtitulo">Algunos de los proyectos que desarrollamos para nuestros clientes.</p>
+      </div>
+      <div class="proyectos-grid">
+
+        <div class="proyecto-card reveal">
+          <div class="proyecto-img ia">🤖</div>
+          <div class="proyecto-body">
+            <span class="proyecto-tag">Agente IA</span>
+            <h3>Asistente de ventas automatizado</h3>
+            <p>Agente conversacional integrado a WhatsApp que califica leads, responde consultas y agenda reuniones de forma autónoma. Redujo el tiempo de respuesta un 90%.</p>
+          </div>
+        </div>
+
+        <div class="proyecto-card reveal">
+          <div class="proyecto-img web">🌐</div>
+          <div class="proyecto-body">
+            <span class="proyecto-tag">Desarrollo Web</span>
+            <h3>Plataforma e-commerce B2B</h3>
+            <p>Sistema de gestión de pedidos mayoristas con panel de administración, catálogo dinámico y reportes automatizados. 200% de aumento en pedidos online.</p>
+          </div>
+        </div>
+
+        <div class="proyecto-card reveal">
+          <div class="proyecto-img auto">⚡</div>
+          <div class="proyecto-body">
+            <span class="proyecto-tag">Automatización</span>
+            <h3>Pipeline de datos integrado</h3>
+            <p>Conexión entre CRM, ERP y herramientas de marketing que elimina la carga manual de datos. Ahorro de 20 horas semanales de trabajo administrativo.</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA CENTRAL ────────────────────────────────────────────────── -->
+  <section id="cta-central">
+    <div class="contenedor">
+      <div class="cta-central-inner reveal">
+        <span class="tag" style="justify-content:center;">Trabajemos juntos</span>
+        <h2>¿Listo para llevar<br>tu negocio al siguiente nivel?</h2>
+        <p>Contanos tu idea y en 24hs te enviamos una propuesta sin compromiso.</p>
+        <div class="cta-acciones">
+          <a href="#contacto" class="btn-primario">
+            Ver opciones de contacto
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width:18px;height:18px"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+          <a href="#" class="btn-ws" data-ws target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" style="width:18px;height:18px"><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.445h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.448z"/></svg>
+            Escribinos ahora
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACTO ───────────────────────────────────────────────────── -->
+  <section id="contacto">
+    <div class="contenedor">
+      <div class="contacto-grid">
+        <div class="contacto-info reveal">
+          <span class="tag">Contacto</span>
+          <h2>Hablemos de<br>tu proyecto</h2>
+          <p>Respondemos en menos de 24 horas. Podés escribirnos por WhatsApp o dejarnos tus datos y nosotros te contactamos.</p>
+          <div class="contacto-metodos">
+            <a href="#" class="metodo" data-ws target="_blank" rel="noopener">
+              <div class="metodo-icono ws">
+                <svg viewBox="0 0 24 24" width="22" height="22" xmlns="http://www.w3.org/2000/svg" style="fill:#25D366"><path d="M20.52 3.449C18.24 1.245 15.24 0 12.045 0 5.463 0 .104 5.334.101 11.893c0 2.096.549 4.14 1.595 5.945L0 24l6.335-1.652c1.746.943 3.71 1.444 5.71 1.445h.006c6.585 0 11.946-5.336 11.949-11.896 0-3.176-1.24-6.165-3.48-8.448z"/></svg>
+              </div>
+              <div class="metodo-texto">
+                <strong>WhatsApp</strong>
+                <span>Respuesta inmediata en horario comercial</span>
+              </div>
+            </a>
+            <a href="#" class="metodo" data-email>
+              <div class="metodo-icono mail">✉️</div>
+              <div class="metodo-texto">
+                <strong>Email</strong>
+                <span>Respuesta en menos de 24 horas</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <div class="reveal">
+          <form id="form-contacto" class="form-contacto" novalidate>
+            <div class="form-fila">
+              <div class="campo">
+                <label for="nombre">Nombre</label>
+                <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" required />
+              </div>
+              <div class="campo">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="tu@email.com" required />
+              </div>
+            </div>
+            <div class="campo">
+              <label for="servicio">¿Qué necesitás?</label>
+              <select id="servicio" name="servicio" required>
+                <option value="" disabled selected>Seleccioná un servicio</option>
+                <option value="Desarrollo Web">Desarrollo Web</option>
+                <option value="Agente de IA">Agente de IA</option>
+                <option value="Automatización de procesos">Automatización de procesos</option>
+                <option value="Consultoría tecnológica">Consultoría tecnológica</option>
+                <option value="Otro">Otro</option>
+              </select>
+            </div>
+            <div class="campo">
+              <label for="mensaje">Contanos tu proyecto</label>
+              <textarea id="mensaje" name="mensaje" placeholder="Describí brevemente qué querés hacer, en qué etapa estás y cuál es tu presupuesto aproximado..." required></textarea>
+            </div>
+            <button type="submit" class="btn-enviar">Enviar por WhatsApp →</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────────────────────────── -->
+  <footer>
+    <div class="contenedor">
+      <div class="footer-inner">
+        <div class="footer-logo">Nexa<span>Studio</span></div>
+        <div class="footer-links">
+          <a href="#servicios">Servicios</a>
+          <a href="#proceso">Proceso</a>
+          <a href="#proyectos">Proyectos</a>
+          <a href="#contacto">Contacto</a>
+          <a href="#" data-linkedin target="_blank" rel="noopener" style="display:none">LinkedIn</a>
+          <a href="#" data-github target="_blank" rel="noopener" style="display:none">GitHub</a>
+        </div>
+        <p class="footer-copy">© 2025 NexaStudio. Todos los derechos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="config.js"></script>
+  <script src="js/main.js"></script>
+
+</body>
+</html>
