@@ -9,19 +9,12 @@ const CONFIG = {
   // Número con código de país, sin + ni espacios
   // Ejemplo Argentina: 5491112345678
   whatsapp: {
-    numero: "5491112345678",            // ← CAMBIÁ ESTO
+    numero: "5491153459316",           
     mensaje: "Hola! Quiero saber más sobre sus servicios de desarrollo web e IA.",
   },
 
   // 📧 EMAIL
-  email: "contacto@nexastudio.dev",    // ← CAMBIÁ ESTO
-
-  // 🌐 REDES SOCIALES (dejá vacío "" si no tenés)
-  redes: {
-    linkedin: "https://linkedin.com/company/nexastudio",   // ← CAMBIÁ ESTO
-    github:   "https://github.com/nexastudio",             // ← CAMBIÁ ESTO
-    instagram: "",                                          // ← CAMBIÁ ESTO
-  },
+  email: "nexastudioscontacto@gmail.com", 
 
   // 🏢 NOMBRE Y TAGLINE
   marca: {

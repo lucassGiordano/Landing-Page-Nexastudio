@@ -9,7 +9,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const wsUrl = () =>
     `https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(cfg.whatsapp.mensaje)}`;
 
-  // Aplicar configuración a todos los botones de WhatsApp
   document.querySelectorAll('[data-ws]').forEach(el => {
     el.href = wsUrl();
     if (cfg.whatsapp.numero === '5491112345678') {
@@ -17,13 +16,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Aplicar email
   document.querySelectorAll('[data-email]').forEach(el => {
     el.href = `mailto:${cfg.email}`;
     el.textContent = cfg.email;
   });
 
-  // Aplicar redes sociales
   if (cfg.redes.linkedin) document.querySelectorAll('[data-linkedin]').forEach(e => { e.href = cfg.redes.linkedin; e.style.display = ''; });
   if (cfg.redes.github)   document.querySelectorAll('[data-github]').forEach(e => { e.href = cfg.redes.github;   e.style.display = ''; });
 
@@ -44,6 +41,11 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Contador animado ──────────────────────────────────────────────────────
+  // Mostrar valor final de inmediato (evita quedarse en 0)
+  document.querySelectorAll('[data-contador]').forEach(num => {
+    num.textContent = num.dataset.contador;
+  });
+
   const animarContador = (el, destino, duracion = 1500) => {
     const inicio = performance.now();
     const update = (ahora) => {
@@ -51,6 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const ease = 1 - Math.pow(1 - progreso, 3);
       el.textContent = Math.round(ease * destino);
       if (progreso < 1) requestAnimationFrame(update);
+      else el.textContent = destino;
     };
     requestAnimationFrame(update);
   };
@@ -64,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
         statsObserver.unobserve(e.target);
       }
     });
-  }, { threshold: 0.5 });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll('.hero-stats').forEach(s => statsObserver.observe(s));
 
@@ -84,7 +87,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       window.open(url, '_blank');
 
-      // Feedback visual
       const btn = form.querySelector('.btn-enviar');
       const original = btn.textContent;
       btn.textContent = '✓ Redirigiendo a WhatsApp...';
