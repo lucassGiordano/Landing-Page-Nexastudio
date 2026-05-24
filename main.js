@@ -2,27 +2,26 @@
 
 document.addEventListener('DOMContentLoaded', () => {
 
-  // ── Configuración desde config.js ─────────────────────────────────────────
   const cfg = window.CONFIG;
+  if (!cfg) { console.error('config.js no cargó'); return; }
 
-  // ── Generar URLs dinámicas ─────────────────────────────────────────────────
+  // ── WhatsApp ───────────────────────────────────────────────────────────────
   const wsUrl = () =>
     `https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(cfg.whatsapp.mensaje)}`;
 
-  document.querySelectorAll('[data-ws]').forEach(el => {
-    el.href = wsUrl();
-    if (cfg.whatsapp.numero === '5491112345678') {
-      el.setAttribute('title', '⚠️ Actualizá el número en config.js');
-    }
-  });
+  document.querySelectorAll('[data-ws]').forEach(el => { el.href = wsUrl(); });
 
+  // ── Email ─────────────────────────────────────────────────────────────────
   document.querySelectorAll('[data-email]').forEach(el => {
     el.href = `mailto:${cfg.email}`;
     el.textContent = cfg.email;
   });
 
-  if (cfg.redes.linkedin) document.querySelectorAll('[data-linkedin]').forEach(e => { e.href = cfg.redes.linkedin; e.style.display = ''; });
-  if (cfg.redes.github)   document.querySelectorAll('[data-github]').forEach(e => { e.href = cfg.redes.github;   e.style.display = ''; });
+  // ── Redes (opcionales) ────────────────────────────────────────────────────
+  if (cfg.redes) {
+    if (cfg.redes.linkedin) document.querySelectorAll('[data-linkedin]').forEach(e => { e.href = cfg.redes.linkedin; e.style.display = ''; });
+    if (cfg.redes.github)   document.querySelectorAll('[data-github]').forEach(e => { e.href = cfg.redes.github;   e.style.display = ''; });
+  }
 
   // ── Nav scroll ────────────────────────────────────────────────────────────
   const nav = document.getElementById('nav');
@@ -32,7 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Reveal on scroll ──────────────────────────────────────────────────────
   const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    }),
     { threshold: 0.12 }
   );
   document.querySelectorAll('.reveal').forEach((el, i) => {
@@ -40,8 +41,8 @@ document.addEventListener('DOMContentLoaded', () => {
     observer.observe(el);
   });
 
-  // ── Contador animado ──────────────────────────────────────────────────────
-  // Mostrar valor final de inmediato (evita quedarse en 0)
+  // ── Contadores ────────────────────────────────────────────────────────────
+  // Valor final visible de inmediato (nunca queda en 0)
   document.querySelectorAll('[data-contador]').forEach(num => {
     num.textContent = num.dataset.contador;
   });
@@ -71,45 +72,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.hero-stats').forEach(s => statsObserver.observe(s));
 
-  // ── Formulario de contacto ─────────────────────────────────────────────────
+  // ── Formulario → WhatsApp ─────────────────────────────────────────────────
   const form = document.getElementById('form-contacto');
   if (form) {
     form.addEventListener('submit', e => {
       e.preventDefault();
-      const data = new FormData(form);
+      const data     = new FormData(form);
       const nombre   = data.get('nombre');
       const email    = data.get('email');
       const servicio = data.get('servicio');
       const mensaje  = data.get('mensaje');
-
-      const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n\n${mensaje}`;
-      const url = `https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`;
-
-      window.open(url, '_blank');
-
+      const texto    = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n\n${mensaje}`;
+      window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
       const btn = form.querySelector('.btn-enviar');
-      const original = btn.textContent;
+      const orig = btn.textContent;
       btn.textContent = '✓ Redirigiendo a WhatsApp...';
       btn.disabled = true;
-      setTimeout(() => { btn.textContent = original; btn.disabled = false; form.reset(); }, 3000);
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
     });
   }
 
-  // ── Mobile nav toggle ─────────────────────────────────────────────────────
-  const toggle = document.querySelector('.nav-menu-toggle');
+  // ── Mobile nav ────────────────────────────────────────────────────────────
+  const toggle   = document.querySelector('.nav-menu-toggle');
   const navLinks = document.querySelector('.nav-links');
   if (toggle && navLinks) {
     let abierto = false;
     toggle.addEventListener('click', () => {
       abierto = !abierto;
-      navLinks.style.display = abierto ? 'flex' : '';
-      navLinks.style.flexDirection = 'column';
-      navLinks.style.position = 'absolute';
-      navLinks.style.top = '70px';
-      navLinks.style.left = '0'; navLinks.style.right = '0';
-      navLinks.style.background = 'rgba(3,18,46,0.97)';
-      navLinks.style.padding = '24px';
-      navLinks.style.backdropFilter = 'blur(16px)';
+      Object.assign(navLinks.style, {
+        display: abierto ? 'flex' : '',
+        flexDirection: 'column',
+        position: 'absolute',
+        top: '70px', left: '0', right: '0',
+        background: 'rgba(3,18,46,0.97)',
+        padding: '24px',
+        backdropFilter: 'blur(16px)'
+      });
       toggle.textContent = abierto ? '✕' : '☰';
     });
     navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
@@ -117,37 +115,28 @@ document.addEventListener('DOMContentLoaded', () => {
     }));
   }
 
-  // ── Partículas sutiles en hero ────────────────────────────────────────────
+  // ── Partículas hero ───────────────────────────────────────────────────────
   const canvas = document.getElementById('hero-canvas');
   if (canvas) {
     const ctx = canvas.getContext('2d');
     let W, H, particulas;
-
-    const resize = () => {
-      W = canvas.width  = canvas.offsetWidth;
-      H = canvas.height = canvas.offsetHeight;
-    };
-
+    const resize = () => { W = canvas.width = canvas.offsetWidth; H = canvas.height = canvas.offsetHeight; };
     const crearParticulas = () => Array.from({ length: 60 }, () => ({
       x: Math.random() * W, y: Math.random() * H,
       vx: (Math.random() - 0.5) * 0.3, vy: -Math.random() * 0.4 - 0.1,
       r: Math.random() * 1.5 + 0.5, op: Math.random() * 0.4 + 0.1
     }));
-
     const loop = () => {
       ctx.clearRect(0, 0, W, H);
       particulas.forEach(p => {
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(78,121,232,${p.op})`;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(78,121,232,${p.op})`; ctx.fill();
         p.x += p.vx; p.y += p.vy;
         if (p.y < -5) { p.y = H + 5; p.x = Math.random() * W; }
         if (p.x < 0 || p.x > W) p.vx *= -1;
       });
       requestAnimationFrame(loop);
     };
-
     resize(); particulas = crearParticulas(); loop();
     window.addEventListener('resize', () => { resize(); particulas = crearParticulas(); });
   }
