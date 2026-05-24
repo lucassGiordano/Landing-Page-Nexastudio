@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Política de Privacidad — NexaStudio</title>
+  <meta name="robots" content="noindex, follow" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --azul-900: #03122e; --azul-800: #071f4e; --azul-600: #1a40a0;
+      --azul-400: #4e79e8; --azul-100: #d4e2ff; --azul-50: #eef3ff;
+      --gris-300: #9ca3b0; --gris-100: #e8ecf4; --blanco: #f9fbff;
+      --font-titulo: 'DM Serif Display', Georgia, serif;
+      --font-cuerpo: 'DM Sans', system-ui, sans-serif;
+    }
+    body { font-family: var(--font-cuerpo); background: var(--azul-900); color: var(--blanco); line-height: 1.7; }
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--azul-900); }
+    ::-webkit-scrollbar-thumb { background: var(--azul-600); border-radius: 3px; }
+    header {
+      padding: 20px 0;
+      border-bottom: 1px solid rgba(78,121,232,0.15);
+      background: rgba(3,18,46,0.95);
+      backdrop-filter: blur(12px);
+      position: sticky; top: 0; z-index: 10;
+    }
+    .contenedor { max-width: 800px; margin: 0 auto; padding: 0 24px; }
+    .header-inner { display: flex; justify-content: space-between; align-items: center; }
+    .logo { font-family: var(--font-titulo); font-size: 20px; color: var(--blanco); text-decoration: none; }
+    .logo span { color: var(--azul-400); }
+    .volver {
+      font-size: 13px; color: var(--gris-300); text-decoration: none;
+      display: flex; align-items: center; gap: 6px; transition: color 0.2s;
+    }
+    .volver:hover { color: var(--blanco); }
+    main { padding: 64px 0 100px; }
+    .doc-header { margin-bottom: 48px; padding-bottom: 32px; border-bottom: 1px solid rgba(78,121,232,0.15); }
+    .badge {
+      display: inline-block; font-size: 11px; font-weight: 500; letter-spacing: 0.07em;
+      text-transform: uppercase; color: var(--azul-100);
+      background: rgba(78,121,232,0.12); border: 1px solid rgba(78,121,232,0.25);
+      padding: 4px 12px; border-radius: 100px; margin-bottom: 16px;
+    }
+    h1 { font-family: var(--font-titulo); font-size: clamp(28px, 4vw, 40px); line-height: 1.2; margin-bottom: 12px; }
+    .fecha { font-size: 13px; color: var(--gris-300); }
+    .intro {
+      background: rgba(78,121,232,0.07); border: 1px solid rgba(78,121,232,0.18);
+      border-radius: 12px; padding: 20px 24px; margin-bottom: 48px;
+      font-size: 15px; color: var(--azul-100); line-height: 1.7;
+    }
+    section { margin-bottom: 44px; }
+    h2 {
+      font-family: var(--font-titulo); font-size: 22px; color: var(--blanco);
+      margin-bottom: 16px; display: flex; align-items: center; gap: 10px;
+    }
+    h2::before {
+      content: ''; display: block; width: 4px; height: 22px;
+      background: var(--azul-400); border-radius: 2px; flex-shrink: 0;
+    }
+    p { font-size: 15px; color: var(--gris-300); margin-bottom: 12px; line-height: 1.75; }
+    ul { padding-left: 0; list-style: none; margin-bottom: 12px; }
+    ul li {
+      font-size: 15px; color: var(--gris-300); padding: 6px 0 6px 20px;
+      position: relative; line-height: 1.65;
+    }
+    ul li::before {
+      content: ''; position: absolute; left: 0; top: 14px;
+      width: 5px; height: 5px; border-radius: 50%; background: var(--azul-400);
+    }
+    strong { color: var(--blanco); font-weight: 500; }
+    a { color: var(--azul-400); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .contacto-box {
+      background: rgba(78,121,232,0.07); border: 1px solid rgba(78,121,232,0.2);
+      border-radius: 12px; padding: 24px; margin-top: 16px;
+    }
+    .contacto-box p { margin: 0; font-size: 14px; }
+    footer {
+      text-align: center; padding: 32px 0;
+      border-top: 1px solid rgba(78,121,232,0.1);
+      font-size: 13px; color: var(--gris-300);
+    }
+    footer a { color: var(--azul-400); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="contenedor header-inner">
+      <a href="./index.html" class="logo">Nexa<span>Studio</span></a>
+      <a href="./index.html" class="volver">← Volver al inicio</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="contenedor">
+
+      <div class="doc-header">
+        <span class="badge">Documento legal</span>
+        <h1>Política de Privacidad</h1>
+        <p class="fecha">Última actualización: Mayo 2025</p>
+      </div>
+
+      <div class="intro">
+        En NexaStudio nos comprometemos a proteger tu privacidad. Esta política explica qué información recopilamos, cómo la usamos y qué derechos tenés sobre tus datos personales, en cumplimiento con la <strong>Ley 25.326 de Protección de Datos Personales de Argentina</strong>.
+      </div>
+
+      <section>
+        <h2>1. Responsable del tratamiento</h2>
+        <p><strong>NexaStudio</strong> es el responsable del tratamiento de los datos personales recopilados a través de este sitio web y sus canales de contacto.</p>
+        <p>Para cualquier consulta sobre privacidad podés contactarnos en: <a href="mailto:nexastudioscontacto@gmail.com">nexastudioscontacto@gmail.com</a></p>
+      </section>
+
+      <section>
+        <h2>2. Datos que recopilamos</h2>
+        <p>Recopilamos únicamente los datos que vos nos proporcionás de forma voluntaria a través de:</p>
+        <ul>
+          <li><strong>Formulario de contacto:</strong> nombre, correo electrónico, tipo de servicio requerido y mensaje.</li>
+          <li><strong>WhatsApp:</strong> cuando iniciás una conversación con nosotros, tu número de teléfono queda registrado en la plataforma de WhatsApp Business.</li>
+          <li><strong>Correo electrónico:</strong> cuando nos escribís directamente.</li>
+        </ul>
+        <p>No recopilamos datos sensibles, no utilizamos cookies de seguimiento ni tecnologías de rastreo de terceros.</p>
+      </section>
+
+      <section>
+        <h2>3. Finalidad del tratamiento</h2>
+        <p>Usamos tus datos exclusivamente para:</p>
+        <ul>
+          <li>Responder tu consulta o solicitud de presupuesto.</li>
+          <li>Enviarte información sobre los servicios que solicitaste.</li>
+          <li>Gestionar la relación comercial si decidís contratarnos.</li>
+          <li>Cumplir con obligaciones legales cuando corresponda.</li>
+        </ul>
+        <p><strong>No vendemos, cedemos ni compartimos tus datos con terceros</strong> con fines comerciales bajo ninguna circunstancia.</p>
+      </section>
+
+      <section>
+        <h2>4. Base legal del tratamiento</h2>
+        <p>El tratamiento de tus datos se basa en:</p>
+        <ul>
+          <li><strong>Tu consentimiento:</strong> al completar el formulario o contactarnos, consentís el uso de tus datos conforme a esta política.</li>
+          <li><strong>Ejecución de un contrato:</strong> cuando la relación comercial se formaliza, el tratamiento es necesario para cumplir con los servicios acordados.</li>
+          <li><strong>Interés legítimo:</strong> para responder consultas y brindar soporte a clientes actuales.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>5. Plazo de conservación</h2>
+        <p>Conservamos tus datos durante el tiempo necesario para cumplir con las finalidades descritas:</p>
+        <ul>
+          <li>Consultas sin relación comercial: hasta <strong>6 meses</strong> desde el último contacto.</li>
+          <li>Clientes activos: durante la vigencia del contrato y hasta <strong>5 años</strong> después de su finalización, por obligaciones fiscales y legales.</li>
+        </ul>
+        <p>Transcurrido ese plazo, los datos son eliminados de forma segura.</p>
+      </section>
+
+      <section>
+        <h2>6. Tus derechos</h2>
+        <p>De acuerdo a la Ley 25.326, tenés derecho a:</p>
+        <ul>
+          <li><strong>Acceso:</strong> conocer qué datos tenemos sobre vos.</li>
+          <li><strong>Rectificación:</strong> corregir datos inexactos o incompletos.</li>
+          <li><strong>Supresión:</strong> solicitar que eliminemos tus datos ("derecho al olvido").</li>
+          <li><strong>Oposición:</strong> oponerte al tratamiento de tus datos en determinadas circunstancias.</li>
+          <li><strong>Portabilidad:</strong> recibir tus datos en un formato estructurado y legible.</li>
+        </ul>
+        <p>Para ejercer cualquiera de estos derechos, escribinos a <a href="mailto:nexastudioscontacto@gmail.com">nexastudioscontacto@gmail.com</a> con el asunto "Derechos ARCO". Respondemos en un plazo máximo de <strong>30 días hábiles</strong>.</p>
+      </section>
+
+      <section>
+        <h2>7. Seguridad de los datos</h2>
+        <p>Adoptamos medidas técnicas y organizativas razonables para proteger tus datos contra acceso no autorizado, pérdida o alteración, incluyendo:</p>
+        <ul>
+          <li>Comunicaciones cifradas mediante HTTPS.</li>
+          <li>Acceso restringido a los datos únicamente al personal autorizado.</li>
+          <li>No almacenamiento de datos en servidores propios innecesariamente.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>8. Servicios de terceros</h2>
+        <p>Este sitio utiliza los siguientes servicios externos con sus propias políticas de privacidad:</p>
+        <ul>
+          <li><strong>WhatsApp Business</strong> (Meta): para comunicación directa. Política: <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank" rel="noopener">whatsapp.com/legal/privacy-policy</a></li>
+          <li><strong>Google Fonts</strong>: para tipografías. Puede registrar la IP del visitante. Política: <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">policies.google.com/privacy</a></li>
+          <li><strong>GitHub Pages</strong>: hosting del sitio. Política: <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" target="_blank" rel="noopener">docs.github.com</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>9. Menores de edad</h2>
+        <p>Nuestros servicios están dirigidos a personas mayores de 18 años. No recopilamos intencionalmente datos de menores. Si detectamos que se han proporcionado datos de un menor sin consentimiento parental, los eliminaremos de inmediato.</p>
+      </section>
+
+      <section>
+        <h2>10. Cambios en esta política</h2>
+        <p>Podemos actualizar esta política ocasionalmente. Te notificaremos de cambios significativos publicando la nueva versión en esta página con la fecha de actualización. Te recomendamos revisarla periódicamente.</p>
+      </section>
+
+      <section>
+        <h2>11. Contacto</h2>
+        <p>Si tenés dudas sobre esta política o sobre el tratamiento de tus datos, contactanos:</p>
+        <div class="contacto-box">
+          <p>📧 <strong>Email:</strong> <a href="mailto:nexastudioscontacto@gmail.com">nexastudioscontacto@gmail.com</a></p>
+          <p style="margin-top:8px">💬 <strong>WhatsApp:</strong> <a href="https://wa.me/5491153459316" target="_blank" rel="noopener">Escribinos directamente</a></p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <footer>
+    <div class="contenedor">
+      <p>© 2025 NexaStudio · <a href="./index.html">Volver al inicio</a></p>
+    </div>
+  </footer>
+
+</body>
+</html>
