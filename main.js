@@ -74,23 +74,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // ── Formulario → WhatsApp ─────────────────────────────────────────────────
   const form = document.getElementById('form-contacto');
-  if (form) {
-    form.addEventListener('submit', e => {
-      e.preventDefault();
-      const data     = new FormData(form);
-      const nombre   = data.get('nombre');
-      const email    = data.get('email');
-      const servicio = data.get('servicio');
-      const mensaje  = data.get('mensaje');
-      const texto    = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n\n${mensaje}`;
-      window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
-      const btn = form.querySelector('.btn-enviar');
-      const orig = btn.textContent;
-      btn.textContent = '✓ Redirigiendo a WhatsApp...';
-      btn.disabled = true;
-      setTimeout(() => { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
-    });
-  }
+if (form) {
+  form.addEventListener('submit', async e => {
+    e.preventDefault();
+    const data     = new FormData(form);
+    const nombre   = data.get('nombre');
+    const email    = data.get('email');
+    const servicio = data.get('servicio');
+    const mensaje  = data.get('mensaje');
+
+    const btn  = form.querySelector('.btn-enviar');
+    const orig = btn.textContent;
+    btn.textContent = 'Enviando...';
+    btn.disabled = true;
+
+    // 1. Crear evento en Google Calendar + Meet
+    try {
+      const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nombre, email, servicio, mensaje,
+          fecha: new Date(Date.now() + 86400000).toISOString().split('T')[0],
+          hora: '10:00'
+        })
+      });
+      const result = await res.json();
+      if (result.ok && result.meetLink) {
+        console.log('Meet creado:', result.meetLink);
+      }
+    } catch (err) {
+      console.error('Error al crear evento:', err);
+    }
+
+    // 2. Igual que antes — redirigir a WhatsApp
+    const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n\n${mensaje}`;
+    window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
+
+    btn.textContent = '✓ Redirigiendo a WhatsApp...';
+    setTimeout(() => { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
+  });
+}
 
   // ── Mobile nav ────────────────────────────────────────────────────────────
   const toggle   = document.querySelector('.nav-menu-toggle');
