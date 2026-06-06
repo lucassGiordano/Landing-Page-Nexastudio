@@ -266,6 +266,25 @@
                 <option value="Otro">Otro</option>
               </select>
             </div>
+            <div class="form-fila">
+  <div class="campo">
+    <label for="fecha">¿Cuándo querés reunirte?</label>
+    <input type="date" id="fecha" name="fecha" required />
+  </div>
+  <div class="campo">
+    <label for="hora">Horario preferido</label>
+    <select id="hora" name="hora" required>
+      <option value="" disabled selected>Elegí un horario</option>
+      <option value="09:00">9:00 AM</option>
+      <option value="10:00">10:00 AM</option>
+      <option value="11:00">11:00 AM</option>
+      <option value="14:00">2:00 PM</option>
+      <option value="15:00">3:00 PM</option>
+      <option value="16:00">4:00 PM</option>
+      <option value="17:00">5:00 PM</option>
+    </select>
+  </div>
+</div>
             <div class="campo">
               <label for="mensaje">Contanos tu proyecto</label>
               <textarea id="mensaje" name="mensaje" placeholder="Describí brevemente qué querés hacer, en qué etapa estás y cuál es tu presupuesto aproximado..." required></textarea>
