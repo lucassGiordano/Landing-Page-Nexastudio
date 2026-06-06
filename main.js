@@ -42,7 +42,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // ── Contadores ────────────────────────────────────────────────────────────
-  // Valor final visible de inmediato (nunca queda en 0)
   document.querySelectorAll('[data-contador]').forEach(num => {
     num.textContent = num.dataset.contador;
   });
@@ -72,101 +71,90 @@ document.addEventListener('DOMContentLoaded', () => {
 
   document.querySelectorAll('.hero-stats').forEach(s => statsObserver.observe(s));
 
-  // ── Formulario → WhatsApp ─────────────────────────────────────────────────
-  // Bloquear fechas pasadas en el date picker
-const inputFecha = document.getElementById('fecha');
-if (inputFecha) {
-  inputFecha.min = new Date().toISOString().split('T')[0];
-}
+  // ── Disponibilidad + Formulario ───────────────────────────────────────────
+  const inputFecha = document.getElementById('fecha');
+  const selectHora = document.getElementById('hora');
 
-// Verificar disponibilidad al elegir fecha
-const inputFecha = document.getElementById('fecha');
-const selectHora = document.getElementById('hora');
+  if (inputFecha && selectHora) {
+    // Bloquear fechas pasadas
+    inputFecha.min = new Date().toISOString().split('T')[0];
 
-if (inputFecha && selectHora) {
-  inputFecha.min = new Date().toISOString().split('T')[0];
+    // Verificar disponibilidad al elegir fecha
+    inputFecha.addEventListener('change', async () => {
+      const fecha = inputFecha.value;
+      if (!fecha) return;
 
-  inputFecha.addEventListener('change', async () => {
-    const fecha = inputFecha.value;
-    if (!fecha) return;
-
-    // Resetear el select mientras carga
-    selectHora.disabled = true;
-    Array.from(selectHora.options).forEach(opt => {
-      opt.disabled = false;
-      opt.textContent = opt.textContent.replace(' — Ocupado', '');
-    });
-    selectHora.options[0].textContent = 'Verificando disponibilidad...';
-
-    try {
-      const res = await fetch(
-        `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`
-      );
-      const data = await res.json();
-
-      if (data.ok) {
-        Array.from(selectHora.options).forEach(opt => {
-          if (data.ocupados.includes(opt.value)) {
-            opt.disabled = true;
-            opt.textContent += ' — Ocupado';
-          }
-        });
-      }
-    } catch (err) {
-      console.error('Error verificando disponibilidad:', err);
-    }
-
-    selectHora.options[0].textContent = 'Elegí un horario';
-    selectHora.disabled = false;
-    selectHora.value = '';
-  });
-}
-  
-const f = document.getElementById('form-contacto');
-const fd = new FormData(f);
-console.log('hora:', fd.get('hora'));
-console.log('fecha:', fd.get('fecha'));
-  
-const form = document.getElementById('form-contacto');
-if (form) {
-  form.addEventListener('submit', async e => {
-    e.preventDefault();
-    
-    const nombre   = document.getElementById('nombre').value.trim();
-    const email    = document.getElementById('email').value.trim();
-    const servicio = document.getElementById('servicio').value;
-    const mensaje  = document.getElementById('mensaje').value.trim();
-    const fecha    = document.getElementById('fecha').value;
-    const hora     = document.getElementById('hora').value;
-
-    const btn  = form.querySelector('.btn-enviar');
-    const orig = btn.textContent;
-    btn.textContent = 'Enviando...';
-    btn.disabled = true;
-
-    // Crear evento en Google Calendar + Meet
-    try {
-      const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
+      selectHora.disabled = true;
+      Array.from(selectHora.options).forEach(opt => {
+        opt.disabled = false;
+        opt.textContent = opt.textContent.replace(' — Ocupado', '');
       });
-      const result = await res.json();
-      if (result.ok && result.meetLink) {
-        console.log('Meet creado:', result.meetLink);
+      selectHora.options[0].textContent = 'Verificando disponibilidad...';
+
+      try {
+        const res = await fetch(
+          `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`
+        );
+        const data = await res.json();
+
+        if (data.ok) {
+          Array.from(selectHora.options).forEach(opt => {
+            if (data.ocupados.includes(opt.value)) {
+              opt.disabled = true;
+              opt.textContent += ' — Ocupado';
+            }
+          });
+        }
+      } catch (err) {
+        console.error('Error verificando disponibilidad:', err);
       }
-    } catch (err) {
-      console.error('Error al crear evento:', err);
-    }
 
-    // Redirigir a WhatsApp como antes
-    const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n🗓 Fecha: ${fecha} a las ${hora}hs\n\n${mensaje}`;
-    window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
+      selectHora.options[0].textContent = 'Elegí un horario';
+      selectHora.disabled = false;
+      selectHora.value = '';
+    });
+  }
 
-    btn.textContent = '✓ Redirigiendo a WhatsApp...';
-    setTimeout(() => { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
-  });
-}
+  const form = document.getElementById('form-contacto');
+  if (form) {
+    form.addEventListener('submit', async e => {
+      e.preventDefault();
+
+      const nombre   = document.getElementById('nombre').value.trim();
+      const email    = document.getElementById('email').value.trim();
+      const servicio = document.getElementById('servicio').value;
+      const mensaje  = document.getElementById('mensaje').value.trim();
+      const fecha    = document.getElementById('fecha').value;
+      const hora     = document.getElementById('hora').value;
+
+      const btn  = form.querySelector('.btn-enviar');
+      const orig = btn.textContent;
+      btn.textContent = 'Enviando...';
+      btn.disabled = true;
+
+      // Crear evento en Google Calendar + Meet
+      try {
+        const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
+        });
+        const result = await res.json();
+        if (result.ok && result.meetLink) {
+          console.log('Meet creado:', result.meetLink);
+        }
+      } catch (err) {
+        console.error('Error al crear evento:', err);
+      }
+
+      // Redirigir a WhatsApp
+      const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n🗓 Fecha: ${fecha} a las ${hora}hs\n\n${mensaje}`;
+      window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
+
+      btn.textContent = '✓ Redirigiendo a WhatsApp...';
+      setTimeout(() => { btn.textContent = orig; btn.disabled = false; form.reset(); }, 3000);
+    });
+  }
 
   // ── Mobile nav ────────────────────────────────────────────────────────────
   const toggle   = document.querySelector('.nav-menu-toggle');
