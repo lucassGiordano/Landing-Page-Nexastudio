@@ -91,23 +91,25 @@ document.addEventListener('DOMContentLoaded', () => {
       });
       selectHora.options[0].textContent = 'Verificando disponibilidad...';
 
-      try {
-        const res = await fetch(
-          `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`
-        );
-        const data = await res.json();
+      const controller = new AbortController();
+const timeout = setTimeout(() => controller.abort(), 5000);
 
-        if (data.ok) {
-          Array.from(selectHora.options).forEach(opt => {
-            if (data.ocupados.includes(opt.value)) {
-              opt.disabled = true;
-              opt.textContent += ' — Ocupado';
-            }
-          });
-        }
-      } catch (err) {
-        console.error('Error verificando disponibilidad:', err);
-      }
+try {
+  const res = await fetch(
+    `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`,
+    { signal: controller.signal }
+  );
+  clearTimeout(timeout);
+  const data = await res.json();
+  // ... resto del código
+} catch (err) {
+  clearTimeout(timeout);
+  if (err.name === 'AbortError') {
+    console.warn('Timeout verificando disponibilidad');
+  } else {
+    console.error('Error verificando disponibilidad:', err);
+  }
+}
 
       selectHora.options[0].textContent = 'Elegí un horario';
       selectHora.disabled = false;
