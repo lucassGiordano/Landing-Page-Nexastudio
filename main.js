@@ -78,7 +78,11 @@ const inputFecha = document.getElementById('fecha');
 if (inputFecha) {
   inputFecha.min = new Date().toISOString().split('T')[0];
 }
-
+const f = document.getElementById('form-contacto');
+const fd = new FormData(f);
+console.log('hora:', fd.get('hora'));
+console.log('fecha:', fd.get('fecha'));
+  
 const form = document.getElementById('form-contacto');
 if (form) {
   form.addEventListener('submit', async e => {
