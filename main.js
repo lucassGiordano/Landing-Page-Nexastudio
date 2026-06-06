@@ -87,13 +87,13 @@ const form = document.getElementById('form-contacto');
 if (form) {
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const formData  = new FormData(form);
-    const nombre    = formData.get('nombre');
-    const email     = formData.get('email');
-    const servicio  = formData.get('servicio');
-    const mensaje   = formData.get('mensaje');
-    const fecha     = formData.get('fecha');
-    const hora      = formData.get('hora');
+    
+    const nombre   = document.getElementById('nombre').value.trim();
+    const email    = document.getElementById('email').value.trim();
+    const servicio = document.getElementById('servicio').value;
+    const mensaje  = document.getElementById('mensaje').value.trim();
+    const fecha    = document.getElementById('fecha').value;
+    const hora     = document.getElementById('hora').value;
 
     const btn  = form.querySelector('.btn-enviar');
     const orig = btn.textContent;
