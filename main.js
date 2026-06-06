@@ -78,6 +78,50 @@ const inputFecha = document.getElementById('fecha');
 if (inputFecha) {
   inputFecha.min = new Date().toISOString().split('T')[0];
 }
+
+// Verificar disponibilidad al elegir fecha
+const inputFecha = document.getElementById('fecha');
+const selectHora = document.getElementById('hora');
+
+if (inputFecha && selectHora) {
+  inputFecha.min = new Date().toISOString().split('T')[0];
+
+  inputFecha.addEventListener('change', async () => {
+    const fecha = inputFecha.value;
+    if (!fecha) return;
+
+    // Resetear el select mientras carga
+    selectHora.disabled = true;
+    Array.from(selectHora.options).forEach(opt => {
+      opt.disabled = false;
+      opt.textContent = opt.textContent.replace(' — Ocupado', '');
+    });
+    selectHora.options[0].textContent = 'Verificando disponibilidad...';
+
+    try {
+      const res = await fetch(
+        `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`
+      );
+      const data = await res.json();
+
+      if (data.ok) {
+        Array.from(selectHora.options).forEach(opt => {
+          if (data.ocupados.includes(opt.value)) {
+            opt.disabled = true;
+            opt.textContent += ' — Ocupado';
+          }
+        });
+      }
+    } catch (err) {
+      console.error('Error verificando disponibilidad:', err);
+    }
+
+    selectHora.options[0].textContent = 'Elegí un horario';
+    selectHora.disabled = false;
+    selectHora.value = '';
+  });
+}
+  
 const f = document.getElementById('form-contacto');
 const fd = new FormData(f);
 console.log('hora:', fd.get('hora'));
