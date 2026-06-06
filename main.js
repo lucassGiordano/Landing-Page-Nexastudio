@@ -73,31 +73,35 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.hero-stats').forEach(s => statsObserver.observe(s));
 
   // ── Formulario → WhatsApp ─────────────────────────────────────────────────
-  const form = document.getElementById('form-contacto');
+  // Bloquear fechas pasadas en el date picker
+const inputFecha = document.getElementById('fecha');
+if (inputFecha) {
+  inputFecha.min = new Date().toISOString().split('T')[0];
+}
+
+const form = document.getElementById('form-contacto');
 if (form) {
   form.addEventListener('submit', async e => {
     e.preventDefault();
-    const data     = new FormData(form);
-    const nombre   = data.get('nombre');
-    const email    = data.get('email');
-    const servicio = data.get('servicio');
-    const mensaje  = data.get('mensaje');
+    const formData  = new FormData(form);
+    const nombre    = formData.get('nombre');
+    const email     = formData.get('email');
+    const servicio  = formData.get('servicio');
+    const mensaje   = formData.get('mensaje');
+    const fecha     = formData.get('fecha');
+    const hora      = formData.get('hora');
 
     const btn  = form.querySelector('.btn-enviar');
     const orig = btn.textContent;
     btn.textContent = 'Enviando...';
     btn.disabled = true;
 
-    // 1. Crear evento en Google Calendar + Meet
+    // Crear evento en Google Calendar + Meet
     try {
       const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          nombre, email, servicio, mensaje,
-          fecha: new Date(Date.now() + 86400000).toISOString().split('T')[0],
-          hora: '10:00'
-        })
+        body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
       });
       const result = await res.json();
       if (result.ok && result.meetLink) {
@@ -107,8 +111,8 @@ if (form) {
       console.error('Error al crear evento:', err);
     }
 
-    // 2. Igual que antes — redirigir a WhatsApp
-    const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n\n${mensaje}`;
+    // Redirigir a WhatsApp como antes
+    const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n🗓 Fecha: ${fecha} a las ${hora}hs\n\n${mensaje}`;
     window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
 
     btn.textContent = '✓ Redirigiendo a WhatsApp...';
