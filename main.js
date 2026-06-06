@@ -76,10 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectHora = document.getElementById('hora');
 
   if (inputFecha && selectHora) {
-    // Bloquear fechas pasadas
     inputFecha.min = new Date().toISOString().split('T')[0];
 
-    // Verificar disponibilidad al elegir fecha
     inputFecha.addEventListener('change', async () => {
       const fecha = inputFecha.value;
       if (!fecha) return;
@@ -92,24 +90,32 @@ document.addEventListener('DOMContentLoaded', () => {
       selectHora.options[0].textContent = 'Verificando disponibilidad...';
 
       const controller = new AbortController();
-const timeout = setTimeout(() => controller.abort(), 5000);
+      const timeout = setTimeout(() => controller.abort(), 5000);
 
-try {
-  const res = await fetch(
-    `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`,
-    { signal: controller.signal }
-  );
-  clearTimeout(timeout);
-  const data = await res.json();
-  // ... resto del código
-} catch (err) {
-  clearTimeout(timeout);
-  if (err.name === 'AbortError') {
-    console.warn('Timeout verificando disponibilidad');
-  } else {
-    console.error('Error verificando disponibilidad:', err);
-  }
-}
+      try {
+        const res = await fetch(
+          `https://nexastudio-backend.vercel.app/api/availability?fecha=${fecha}`,
+          { signal: controller.signal }
+        );
+        clearTimeout(timeout);
+        const data = await res.json();
+
+        if (data.ok) {
+          Array.from(selectHora.options).forEach(opt => {
+            if (data.ocupados.includes(opt.value)) {
+              opt.disabled = true;
+              opt.textContent += ' — Ocupado';
+            }
+          });
+        }
+      } catch (err) {
+        clearTimeout(timeout);
+        if (err.name === 'AbortError') {
+          console.warn('Timeout verificando disponibilidad');
+        } else {
+          console.error('Error verificando disponibilidad:', err);
+        }
+      }
 
       selectHora.options[0].textContent = 'Elegí un horario';
       selectHora.disabled = false;
@@ -134,7 +140,6 @@ try {
       btn.textContent = 'Enviando...';
       btn.disabled = true;
 
-      // Crear evento en Google Calendar + Meet
       try {
         const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
           method: 'POST',
@@ -149,7 +154,6 @@ try {
         console.error('Error al crear evento:', err);
       }
 
-      // Redirigir a WhatsApp
       const texto = `Hola! Soy *${nombre}* (${email}).\n\n📋 Servicio: ${servicio}\n🗓 Fecha: ${fecha} a las ${hora}hs\n\n${mensaje}`;
       window.open(`https://wa.me/${cfg.whatsapp.numero}?text=${encodeURIComponent(texto)}`, '_blank');
 
