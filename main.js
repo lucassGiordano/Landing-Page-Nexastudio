@@ -141,14 +141,25 @@ document.addEventListener('DOMContentLoaded', () => {
       btn.disabled = true;
 
       try {
-        const res = await fetch('https://nexastudio-backend.vercel.app/api/schedule', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
-        });
-        const result = await res.json();
-        if (result.ok && result.meetLink) {
-          console.log('Meet creado:', result.meetLink);
+        // Llamadas en paralelo: Google Meet + notificación WhatsApp
+        const [scheduleRes] = await Promise.allSettled([
+          fetch('https://nexastudio-backend.vercel.app/api/schedule', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
+          }),
+          fetch('https://nexastudio-backend.vercel.app/api/contacto', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nombre, email, servicio, mensaje, fecha, hora })
+          })
+        ]);
+
+        if (scheduleRes.status === 'fulfilled') {
+          const result = await scheduleRes.value.json();
+          if (result.ok && result.meetLink) {
+            console.log('Meet creado:', result.meetLink);
+          }
         }
       } catch (err) {
         console.error('Error al crear evento:', err);
